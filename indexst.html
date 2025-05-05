@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ChatGPT Structured Template</title>
+</head>
+<body style="max-width: 600px; margin: auto; font-family: Arial, sans-serif;">
+  <h2>Structured Chat Form</h2>
+
+  <form id="chatForm">
+    <input type="text" name="topic" placeholder="Topic" required style="width: 100%; margin-bottom: 10px;"><br>
+
+    <label for="tone">Select tone:</label><br>
+    <select name="tone" style="width: 100%; margin-bottom: 10px;">
+      <option value="Formal">Formal</option>
+      <option value="Casual">Casual</option>
+      <option value="Friendly">Friendly</option>
+    </select><br>
+
+    <label for="audience">Select audience:</label><br>
+    <select name="audience" style="width: 100%; margin-bottom: 10px;">
+      <option value="General Public">General Public</option>
+      <option value="Professionals">Professionals</option>
+      <option value="Students">Students</option>
+    </select><br>
+
+    <label>Special considerations:</label><br>
+    <input type="checkbox" name="extras" value="Keep it brief"> Keep it brief<br>
+    <input type="checkbox" name="extras" value="Use examples"> Use examples<br>
+    <input type="checkbox" name="extras" value="Be humorous"> Be humorous<br><br>
+
+    <button type="submit">Generate response</button>
+  </form>
+
+  <div id="reply" style="margin-top: 20px; padding: 10px; background-color: #f9f9f9;"></div>
+
+  <script>
+    const form = document.getElementById('chatForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const topic = formData.get('topic');
+      const tone = formData.get('tone');
+      const audience = formData.get('audience');
+      const extras = formData.getAll('extras');  // multiple checkboxes
+
+      const payload = { topic, tone, audience, extras };
+
+      const response = await fetch('http://localhost:5000/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+      document.getElementById('reply').innerHTML = `<strong>Response:</strong><br>${data.reply}`;
+    });
+  </script>
+</body>
+</html>
