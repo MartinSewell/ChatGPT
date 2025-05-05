@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Career Decision Assistant</title>
+</head>
+<body style="max-width: 600px; margin: auto; font-family: Arial, sans-serif;">
+    <h2>Career Decision Assistant</h2>
+    <form method="POST">
+        <label>Age:</label><br>
+        <input name="age" type="number" required><br><br>
+
+        <label>Years of Experience:</label><br>
+        <input name="experience" type="number" required><br><br>
+
+        <label>Field (e.g. Software Engineering):</label><br>
+        <input name="field" type="text" required><br><br>
+
+        <input type="submit" value="Evaluate">
+    </form>
+
+    {% if result1 %}
+        <h3>🧠 Node 1: Mid-Career Check</h3>
+        <div style="white-space: pre-wrap; border: 1px solid #ccc; padding: 10px;">{{ result1 }}</div>
+    {% endif %}
+
+    {% if result2 %}
+        <h3>📈 Node 2: Follow-up Advice</h3>
+        <div style="white-space: pre-wrap; border: 1px solid #ccc; padding: 10px;">{{ result2 }}</div>
+    {% endif %}
+</body>
+</html>
